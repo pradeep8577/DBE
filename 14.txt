@@ -1,0 +1,73 @@
+create table customer(custid number(2) primary key,custname varchar2(20),address varchar2(20),city varchar2(20),phoneno number(10));
+create table order1(orderno number(3) primary key ,qty number(3))
+create table cust_places_order(custid number(2) references customer(custid),orderno number(3) references order1(orderno),orderdate date);
+create table item(icode number(3) primary key,iname varchar2(20),rate number(4));
+create table order_item(orderno number(3) references order1(orderno),icode number(3) references item(icode))
+
+insert into customer values(1,'aaa','pqr','Sangli',999999999);
+insert into customer values(2,'bbb','stu','Kolhapur',8888888888);
+insert into customer values(3,'ccc','vwx','Ichalkaranji',7777777777);
+insert into customer values(4,'ddd','yza','Satara',6666666666);
+insert into customer values(5,'eee','bcd','Jaysingpur',5555555555);
+insert into customer values(6,'fff','efg','Miraj',444444444);
+
+insert into order1 values (101,200);
+insert into order1 values (201,300);
+insert into order1 values (301,400);
+insert into order1 values (401,500);
+insert into order1 values (501,600);
+insert into order1 values (601,700);
+
+insert into cust_places_order values (1,101,'11202002');
+insert into cust_places_order values (2,201,'03232009');
+insert into cust_places_order values (3,301,'12022006');
+insert into cust_places_order values (4,401,'01202012');
+insert into cust_places_order values (5,501,'05302014');
+insert into cust_places_order values (6,601,'06242016');
+
+insert into item values(11,'Soap',200);
+insert into item values(22,'T-Shirt',300);
+insert into item values(33,'Jeans',600);
+insert into item values(44,'Bottle',700);
+insert into item values(55,'Book',800);
+insert into item values(66,'Carpet',900);
+
+insert into order_item values(101,11);
+insert into order_item values(201,22);
+insert into order_item values(301,33);
+insert into order_item values(401,44);
+insert into order_item values(501,55);
+insert into order_item values(601,66);
+
+1.
+update order1 set qty=20 where orderno=101;
+
+2.
+select iname from item order by iname;
+
+3.
+select icode,rate from item where icode in (select icode from order_item where orderno=201);
+
+4.
+select custname from customer where custid in (select custid from cust_places_order where orderdate='03232009'); 
+
+5.
+select custname from customer where custid in (select custid from cust_places_order where orderno in (select orderno from order_item where icode in (select icode from item where rate in (select min(rate) from item))))
+
+6.
+select custname from customer where custid = any(select custid from cust_places_order);
+
+7.
+select iname from item where icode in(select icode from order_item where orderno=101);
+
+8.
+
+9.
+select orderno from order_item where icode in(select icode from item where rate in(select max(rate) from item))
+
+10.
+select iname from item where rate < 500 and icode in (select icode from order_item where orderno in(select orderno from order1 where qty>100))
+
+
+
+

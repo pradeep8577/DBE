@@ -1,0 +1,33 @@
+create table supplier1(supplier_id number(2) primary key,supplier_name varchar2(20),city varchar2(20));
+create table orders(order_id number(2) primary key, supplier_id number(2) references supplier1(supplier_id),order_qty number(3),product_name varchar2(20),order_date date);
+
+insert into supplier1 values(1,'shah','atlatic');
+insert into supplier1 values(2,'kadam','atlatic');
+insert into supplier1 values(3,'shirgave','parth');
+insert into supplier1 values(4,'khatadya','adilade');
+insert into supplier1 values(5,'bagvan','melbourne');
+insert into supplier1 values(6,'murchite','sydney');
+
+insert into orders values(11,1,20,'mango','01012009');
+insert into orders values(22,2,120,'apple','02042009');
+insert into orders values(33,3,100,'banana','03062009');
+insert into orders values(44,4,80,'orange','12102009');
+insert into orders values(55,5,60,'pinaapple','12122010');
+insert into orders values(66,6,40,'graphes','11112012');
+insert into orders values(77,6,60,'graphes','05112010');
+delete from orders where order_id=77
+1.
+select s.supplier_name, o.order_id from supplier1 s full outer join orders o on s.supplier_id=o.supplier_id where city='atlatic';
+2.
+select * from orders where order_date between '01/01/2009' and '12/31/2009';
+3.
+select * from supplier1 where rownum<=3;
+4.
+select * from supplier1 where supplier_name like 's%';
+5.
+select supplier_id from orders where product_name='mango' or product_name='banana';                            
+6.
+select order_qty,order_date from orders order by order_date;
+7.
+select * from supplier1 s full outer join orders o on s.supplier_id=o.supplier_id;
+8.

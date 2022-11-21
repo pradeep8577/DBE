@@ -1,0 +1,46 @@
+create table employee(eid number(2) primary key, Ename varchar2(20),salary number(8),age number(3));
+create table Department(Did number(2) primary key,Dname varchar(20));
+create table company(eid number(2) references employee(eid),did number(2) references department(did),Cname varchar2(20));
+
+insert into employee values(1,'Smith',35000,20);
+insert into employee values(2,'abc',30000,48);
+insert into employee values(3,'def',25000,32);
+insert into employee values(4,'ghi',45000,23);
+insert into employee values(5,'klm',40000,38);
+insert into employee values(6,'nop',27000,22);
+insert into employee values(7,'xyz',27000,22);
+
+
+insert into department values(11,'IT');
+insert into department values(22,'Research');
+insert into department values(33,'Development');
+insert into department values(44,'management');
+insert into department values(55,'Head');
+insert into department values(66,'Coding');
+insert into department values(10,'Hardware');
+
+insert into company values(1,11,'TCS');
+insert into company values(2,11,'TCS');
+insert into company values(3,22,'INFOSYS');
+insert into company values(4,33,'INFOSYS');
+insert into company values(5,44,'TCS');
+insert into company values(6,55,'TCS');
+insert into company values(4,66,'INFOSYS');
+insert into company values(4,10,'TCS');
+update employee set salary=10000 where 
+
+1.
+select ename from employee where eid in (select eid from company where did=10)
+2.
+select ename from employee where age >= (select max(age) from employee where salary=10000)
+3.
+select count(distinct(ename)) as Count from employee
+4.
+select ename,age from employee where age = (select max(age) from Employee )
+5.
+select ename from employee where rownum<=6
+6.
+select * from employee where age = any (SELECT AGE FROM employee GROUP BY age HAVING COUNT(age) >= 2);
+7.
+update employee set salary=salary+(salary*0.02) where eid=7;
+select * from employee

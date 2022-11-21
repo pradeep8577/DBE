@@ -1,0 +1,16 @@
+1.
+2.
+select avg(age) as age from sailors group by rating
+3.
+select sname from sailors where sid in(select sid from reserves where bid in (select bid from boats where color='Red'));
+4.
+insert into Sailors values(7,'saaaaas',20,18);
+insert into Sailors values(7,'saaaaas',20,18);
+5.
+insert into Sailors values(8,'saaaaar',20,18);
+select sname from sailors where sname like '%r'
+6.
+delete from reserves where bid in (select bid from boats where color='Green') 
+delete from boats where color='Green'
+7.
+Alter table sailors add smail varchar2(20)

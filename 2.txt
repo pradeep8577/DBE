@@ -1,0 +1,41 @@
+create table sailors(sid number(2) primary key, sname varchar(20),rating number(2), age number(3));
+create table boats(bid number(3) primary key, bname varchar(20),color varchar(20));
+create table Reserves(sid number(2) references sailors(sid),bid number(3) references boats(bid),day varchar2(20));
+
+
+insert into Sailors values(1,'aa',9,24);
+insert into Sailors values(2,'bcvb',8,23);
+insert into Sailors values(3,'cc',6,22);
+insert into Sailors values(4,'brtb',10,21);
+insert into Sailors values(5,'ee',8,28);
+insert into Sailors values(6,'ff',10,29);
+
+insert into Boats values(104,'zxc','Red');
+insert into Boats values(204,'zec','Red');
+insert into Boats values(304,'zdg','Bkue');
+insert into Boats values(404,'asc','White');
+insert into Boats values(504,'kfj','Green');
+insert into Boats values(604,'qwe','Black');
+
+insert into Reserves values(1,104,'Sunday');
+insert into Reserves values(2,204,'Sunday');
+insert into Reserves values(3,304,'Sunday');
+insert into Reserves values(4,404,'Sunday');
+insert into Reserves values(5,504,'Sunday');
+insert into Reserves values(6,604,'Sunday');
+
+1.
+select sid from sailors where rating = (select max(rating) from sailors)
+2.
+select avg(age) as age from sailors where age>=18 group by rating having count(sid)>= 2 
+3.
+select age from sailors where length(sname)>=3 and sname like 'b%b';
+4.
+select sid from sailors where rating = 10 or sid in (select sid from reserves where bid = 104);
+5.
+select * from sailors where ROWNUM<=4
+6.
+update sailors set sname='Sachin' where sid=3;
+7.
+delete from reserves where bid in (select bid from boats where color='Red');
+delete from  boats where color='Red'
